@@ -28,7 +28,7 @@ type Settings struct {
 }
 
 type DBSettings struct {
-	DatabaseURL               string `default:"postgres://morza:morza@db:5432/morza?sslmode=disable"                    envconfig:"DATABASE_URL"`
+	DatabaseURL               string `default:"postgres://morza:morza@postgres:5432/morza?sslmode=disable"                    envconfig:"DATABASE_URL"`
 	MaxIdlePgConnections      int32  `default:"100"                                                                     envconfig:"MAX_IDLE_PG_CONNECTIONS"`
 	IdleLifetimePgConnections int    `default:"1200"                                                                    envconfig:"IDLE_LIFETIME_PG_CONNECTIONS"` // sec
 	QueryExecMode             int32  `default:"1"                                                                       envconfig:"QUERY_EXEC_MODE"`

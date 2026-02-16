@@ -51,7 +51,7 @@ func InitApp(ctx context.Context) *App {
 	if err := cache.CoolAll(ctx); err != nil {
 		logger.Error("Не получилось охладить кеш")
 	}
-	service := service.NewMorzaService(repo, cache, logger)
+	service := service.NewMorzaService(repo, logger)
 	baseController := controller.NewBaseController(&settings)
 	morzasController := controller.NewChangeMorzaController(service, logger)
 
@@ -66,8 +66,7 @@ func InitApp(ctx context.Context) *App {
 	initFiberMonitoring(&settings, server, logger)
 	api := server.Group("/api")
 	baseController.RegisterRotes(api)
-	// server.Use(middleware.Logger(logger))
-	morzasController.RegisterRotes(api, middleware.AuthMiddleware(settings.JwtSigningKeyBytes, logger))
+	morzasController.RegisterRoutes(api, middleware.AuthMiddleware(settings.JwtSigningKeyBytes, logger))
 
 	return &App{
 		server:   server,
@@ -80,7 +79,7 @@ func InitApp(ctx context.Context) *App {
 
 // RunApp main application.
 func (a *App) RunApp(ctx context.Context) error {
-	a.logger.Info("Запуск сервера", "port", a.settings.AppPort)
+	a.logger.Info("Запуск сервера ", "port:", a.settings.AppPort)
 
 	return a.server.Listen(":" + a.settings.AppPort)
 }
