@@ -8,5 +8,5 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin/app ./cmd/morze/main.go
 FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/bin/app .
-EXPOSE 8080
+EXPOSE 8081
 CMD ["./app", "start"]
