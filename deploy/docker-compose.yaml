@@ -14,9 +14,9 @@ services:
   postgres:
     image: postgres:15-alpine
     environment:
-      - POSTGRES_DB=morza
-      - POSTGRES_USER=morza
-      - POSTGRES_PASSWORD=morza
+      - POSTGRES_DB=morze
+      - POSTGRES_USER=morze
+      - POSTGRES_PASSWORD=morze
     ports:
       - "5432:5432"
     volumes:

@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Fact0RR/morza/internal/configs"
-	"github.com/Fact0RR/morza/pkg"
+	"github.com/Fact0RR/morze/internal/configs"
+	"github.com/Fact0RR/morze/pkg"
 	"github.com/gofiber/fiber/v2"
 	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
@@ -27,7 +27,7 @@ func initFiberMonitoring(settings *configs.Settings, app *fiber.App, logger *log
 func setPrometheusServiceVersion(settings *configs.Settings) {
 	PromServiceVersion := prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Namespace: "morza",
+			Namespace: "morze",
 			Name:      "service_version",
 			Help:      "The information of a service version",
 			ConstLabels: prometheus.Labels{

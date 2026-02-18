@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/Fact0RR/morza/internal/configs"
+	"github.com/Fact0RR/morze/internal/configs"
 	"github.com/gofiber/storage/redis/v3"
 
 	log "github.com/sirupsen/logrus"

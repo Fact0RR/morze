@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Fact0RR/morza/internal/domain"
+	"github.com/Fact0RR/morze/internal/domain"
 	"github.com/jackc/pgx/v5/pgxpool"
 	log "github.com/sirupsen/logrus"
 )
@@ -20,8 +20,8 @@ var (
 )
 
 var (
-	errInsertOrUpdateMorza = errors.New("ошибка при обновлении конфига")
-	errGetMorzaMessages    = errors.New("ошибка при получении сообщений")
+	errInsertOrUpdateMorze = errors.New("ошибка при обновлении конфига")
+	errGetMorzeMessages    = errors.New("ошибка при получении сообщений")
 )
 
 // wrapError оборачивает ошибку с дополнительным контекстом.
@@ -29,20 +29,20 @@ func wrapError(errBase error, err error) error {
 	return fmt.Errorf("%w: %w", errBase, err)
 }
 
-type MorzaRepo struct {
+type MorzeRepo struct {
 	db     *pgxpool.Pool
 	logger *log.Logger
 }
 
-func NewMorzaRepo(db *pgxpool.Pool, logger *log.Logger) *MorzaRepo {
-	return &MorzaRepo{
+func NewMorzeRepo(db *pgxpool.Pool, logger *log.Logger) *MorzeRepo {
+	return &MorzeRepo{
 		db:     db,
 		logger: logger,
 	}
 }
 
 // GetPrivateMessages получает последние сообщения для указанного contact_id с пагинацией
-func (r *MorzaRepo) GetPrivateMessages(ctx context.Context, contactID int, limit int, offset int) ([]domain.MorzaMessage, error) {
+func (r *MorzeRepo) GetPrivateMessages(ctx context.Context, contactID int, limit int, offset int) ([]domain.MorzeMessage, error) {
 	r.logger.WithFields(log.Fields{
 		"contact_id": contactID,
 		"limit":      limit,
@@ -52,13 +52,13 @@ func (r *MorzaRepo) GetPrivateMessages(ctx context.Context, contactID int, limit
 	rows, err := r.db.Query(ctx, queryGetPrivateMessages, contactID, limit, offset)
 	if err != nil {
 		r.logger.Errorf("Не удалось выполнить запрос: %v, contact_id: %d", err, contactID)
-		return nil, wrapError(errGetMorzaMessages, err)
+		return nil, wrapError(errGetMorzeMessages, err)
 	}
 	defer rows.Close()
 
-	var messages []domain.MorzaMessage
+	var messages []domain.MorzeMessage
 	for rows.Next() {
-		var msg domain.MorzaMessage
+		var msg domain.MorzeMessage
 		err := rows.Scan(
 			&msg.ID,
 			&msg.ContactID,
@@ -69,14 +69,14 @@ func (r *MorzaRepo) GetPrivateMessages(ctx context.Context, contactID int, limit
 		)
 		if err != nil {
 			r.logger.Errorf("Не удалось прочитать строку: %v", err)
-			return nil, wrapError(errGetMorzaMessages, err)
+			return nil, wrapError(errGetMorzeMessages, err)
 		}
 		messages = append(messages, msg)
 	}
 
 	if err = rows.Err(); err != nil {
 		r.logger.Errorf("Ошибка при итерации по строкам: %v", err)
-		return nil, wrapError(errGetMorzaMessages, err)
+		return nil, wrapError(errGetMorzeMessages, err)
 	}
 
 	r.logger.WithFields(log.Fields{
@@ -88,7 +88,7 @@ func (r *MorzaRepo) GetPrivateMessages(ctx context.Context, contactID int, limit
 }
 
 // PostPrivateMessage добавляет новое сообщение
-func (r *MorzaRepo) PostPrivateMessage(ctx context.Context, contactID int, userID int, data string, additionals []string) (int, error) {
+func (r *MorzeRepo) PostPrivateMessage(ctx context.Context, contactID int, userID int, data string, additionals []string) (int, error) {
 	r.logger.WithFields(log.Fields{
 		"contact_id": contactID,
 		"user_id":    userID,
@@ -98,7 +98,7 @@ func (r *MorzaRepo) PostPrivateMessage(ctx context.Context, contactID int, userI
 	err := r.db.QueryRow(ctx, queryPostPrivateMessage, contactID, userID, data, additionals).Scan(&messageID)
 	if err != nil {
 		r.logger.Errorf("Не удалось добавить сообщение: %v", err)
-		return 0, wrapError(errInsertOrUpdateMorza, err)
+		return 0, wrapError(errInsertOrUpdateMorze, err)
 	}
 
 	r.logger.WithField("message_id", messageID).Debug("Сообщение успешно добавлено")

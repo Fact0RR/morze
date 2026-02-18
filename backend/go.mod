@@ -1,4 +1,4 @@
-module github.com/Fact0RR/morza
+module github.com/Fact0RR/morze
 
 go 1.23.0
 

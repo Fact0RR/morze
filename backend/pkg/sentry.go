@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Fact0RR/morza/internal/configs"
+	"github.com/Fact0RR/morze/internal/configs"
 	"github.com/getsentry/sentry-go"
 	"github.com/gofiber/contrib/fibersentry"
 	"github.com/gofiber/fiber/v2"
@@ -20,7 +20,7 @@ func InitSentry(settings *configs.Settings, logger *log.Logger) {
 		Debug:            settings.Debug,
 		SampleRate:       settings.SentrySamplerRate,
 		TracesSampleRate: settings.SentryTracesSamplerRate,
-		Release:          "morza@" + settings.Version,
+		Release:          "morze@" + settings.Version,
 	})
 	if err != nil {
 		logger.Error("sentry.Init", err)
@@ -47,7 +47,7 @@ func InitFiberSentry(settings *configs.Settings, app *fiber.App, logger *log.Log
 			},
 			Debug:            true,
 			AttachStacktrace: true,
-			Release:          "morza@" + settings.Version,
+			Release:          "morze@" + settings.Version,
 			TracesSampleRate: settings.SentryTracesSamplerRate,
 			SampleRate:       settings.SentrySamplerRate,
 		})

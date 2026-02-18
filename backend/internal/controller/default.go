@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Fact0RR/morza/internal/configs"
+	"github.com/Fact0RR/morze/internal/configs"
 	"github.com/gofiber/fiber/v2"
 )
 

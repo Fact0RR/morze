@@ -3,9 +3,9 @@ package database
 import (
 	"context"
 
-	"github.com/Fact0RR/morza/internal/configs"
-	"github.com/Fact0RR/morza/pkg/handlers"
-	"github.com/Fact0RR/morza/pkg/postgres"
+	"github.com/Fact0RR/morze/internal/configs"
+	"github.com/Fact0RR/morze/pkg/handlers"
+	"github.com/Fact0RR/morze/pkg/postgres"
 	"github.com/jackc/pgx/v5/pgxpool"
 	log "github.com/sirupsen/logrus"
 )

@@ -3,30 +3,30 @@ package controller
 import (
 	"strconv"
 
-	"github.com/Fact0RR/morza/internal/domain"
-	"github.com/Fact0RR/morza/internal/service"
+	"github.com/Fact0RR/morze/internal/domain"
+	"github.com/Fact0RR/morze/internal/service"
 	"github.com/gofiber/fiber/v2"
 	log "github.com/sirupsen/logrus"
 )
 
-type MorzaController struct {
-	service *service.MorzaService
+type MorzeController struct {
+	service *service.MorzeService
 	logger  *log.Logger
 }
 
-func NewChangeMorzaController(service *service.MorzaService, logger *log.Logger) *MorzaController {
-	return &MorzaController{
+func NewChangeMorzeController(service *service.MorzeService, logger *log.Logger) *MorzeController {
+	return &MorzeController{
 		service: service,
 		logger:  logger,
 	}
 }
 
-func (c *MorzaController) RegisterRoutes(router fiber.Router, jwtMiddleware fiber.Handler) {
+func (c *MorzeController) RegisterRoutes(router fiber.Router, jwtMiddleware fiber.Handler) {
 	router.Get("/messages", c.GetPrivateMessages)
 	router.Post("/message", c.PostPrivateMessage)
 }
 
-func (c *MorzaController) GetPrivateMessages(ctx *fiber.Ctx) error {
+func (c *MorzeController) GetPrivateMessages(ctx *fiber.Ctx) error {
 
 	contactID, err := strconv.Atoi(ctx.Query("contact"))
 	if err != nil {
@@ -54,7 +54,7 @@ func (c *MorzaController) GetPrivateMessages(ctx *fiber.Ctx) error {
 	return ctx.JSON(messages)
 }
 
-func (c *MorzaController) PostPrivateMessage(ctx *fiber.Ctx) error {
+func (c *MorzeController) PostPrivateMessage(ctx *fiber.Ctx) error {
 	var contact domain.Contact
 
 	c.logger.Debug("Запуск функции на публикацию приватных сообщений")

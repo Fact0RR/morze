@@ -17,4 +17,4 @@ COPY . /migrations
 WORKDIR /migrations
 
 # Команда которая ждет готовности БД и затем запускает миграции
-CMD ["sh", "-c", "echo 'Waiting for PostgreSQL...'; until pg_isready -h postgres -p 5432; do sleep 2; done; echo 'Running migrations...'; goose postgres \"postgres://morza:morza@postgres:5432/morza?sslmode=disable\" up"]
+CMD ["sh", "-c", "echo 'Waiting for PostgreSQL...'; until pg_isready -h postgres -p 5432; do sleep 2; done; echo 'Running migrations...'; goose postgres \"postgres://morze:morze@postgres:5432/morze?sslmode=disable\" up"]

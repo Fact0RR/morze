@@ -6,7 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Fact0RR/morza/internal/app"
+	"github.com/Fact0RR/morze/internal/app"
 	"github.com/spf13/cobra"
 )
 

@@ -10,16 +10,16 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type MorzaCache struct {
+type MorzeCache struct {
 	cache  *TypeRedisClient
 	ttl    int
 	enable bool
 	logger *log.Logger
 }
 
-// NewMorzaCache создает новый экземпляр MorzaCache.
-func NewMorzaCache(redisClient *TypeRedisClient, ttl int, enable bool, logger *log.Logger) *MorzaCache {
-	return &MorzaCache{
+// NewMorzeCache создает новый экземпляр MorzeCache.
+func NewMorzeCache(redisClient *TypeRedisClient, ttl int, enable bool, logger *log.Logger) *MorzeCache {
+	return &MorzeCache{
 		cache:  redisClient,
 		ttl:    ttl,
 		enable: enable,
@@ -28,7 +28,7 @@ func NewMorzaCache(redisClient *TypeRedisClient, ttl int, enable bool, logger *l
 }
 
 // TryGetByServiceName пытается получить конфигурацию по имени сервиса из кэша.
-func (c *MorzaCache) TryGetByServiceName(ctx context.Context, serviceName string) ([]byte, error) {
+func (c *MorzeCache) TryGetByServiceName(ctx context.Context, serviceName string) ([]byte, error) {
 	if !c.enable {
 		return nil, nil
 	}
@@ -57,7 +57,7 @@ func (c *MorzaCache) TryGetByServiceName(ctx context.Context, serviceName string
 }
 
 // WarmByServiceName сохраняет конфигурацию в кэш по имени сервиса.
-func (c *MorzaCache) WarmByServiceName(ctx context.Context, serviceName string, data []byte) error {
+func (c *MorzeCache) WarmByServiceName(ctx context.Context, serviceName string, data []byte) error {
 	if !c.enable {
 		return nil
 	}
@@ -84,7 +84,7 @@ func (c *MorzaCache) WarmByServiceName(ctx context.Context, serviceName string, 
 }
 
 // CoolByServiceName удаляет конфигурацию из кэша по имени сервиса.
-func (c *MorzaCache) CoolByServiceName(ctx context.Context, serviceName string) error {
+func (c *MorzeCache) CoolByServiceName(ctx context.Context, serviceName string) error {
 	if !c.enable {
 		return nil
 	}
@@ -109,7 +109,7 @@ func (c *MorzaCache) CoolByServiceName(ctx context.Context, serviceName string) 
 }
 
 // CoolAll удаляет все конфигурации из кэша.
-func (c *MorzaCache) CoolAll(ctx context.Context) error {
+func (c *MorzeCache) CoolAll(ctx context.Context) error {
 	if !c.enable {
 		return nil
 	}
