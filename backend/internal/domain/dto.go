@@ -6,3 +6,7 @@ type Contact struct {
     Data        string   `json:"data"`
     Additionals []string `json:"additionals,omitempty"`
 }
+
+type MessageResponse struct{
+    MessageID int `json:"message_id"`
+}

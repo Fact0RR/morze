@@ -45,7 +45,7 @@ func (c *MorzeController) GetPrivateMessages(ctx *fiber.Ctx) error {
 	}
 
 	c.logger.Debug("Запуск функции на получение приватных сообщений")
-	messages, err:= c.service.GetPrivateMessages(ctx.Context(), contactID, limit, offset)
+	messages, err := c.service.GetPrivateMessages(ctx.Context(), contactID, limit, offset)
 	if err != nil {
 		c.logger.Error("err in query: ", err)
 		ctx.Status(fiber.StatusInternalServerError)
@@ -56,14 +56,17 @@ func (c *MorzeController) GetPrivateMessages(ctx *fiber.Ctx) error {
 
 func (c *MorzeController) PostPrivateMessage(ctx *fiber.Ctx) error {
 	var contact domain.Contact
+	var err error
 
 	c.logger.Debug("Запуск функции на публикацию приватных сообщений")
-	if err := ctx.BodyParser(&contact); err != nil {
-        return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-            "error": "Cannot parse JSON",
-            "details": err.Error(),
-        })
-    }
+	if err = ctx.BodyParser(&contact); err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error":   "Cannot parse JSON",
+			"details": err.Error(),
+		})
+	}
 
-	return ctx.JSON(contact)
+	id, err := c.service.PostPrivateMessages(ctx.Context(), contact.ContactID, contact.UserID, contact.Data, contact.Additionals)
+	response := domain.MessageResponse{MessageID: id}
+	return ctx.JSON(response)
 }
