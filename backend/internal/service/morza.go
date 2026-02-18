@@ -3,42 +3,26 @@ package service
 import (
 	"context"
 
-	"github.com/Fact0RR/morza/internal/domain"
+	"github.com/Fact0RR/morze/internal/domain"
 	log "github.com/sirupsen/logrus"
 )
 
-var ValueTypes map[int]string
-
-func init() {
-	ValueTypes = make(map[int]string)
-	ValueTypes[0] = "int"
-	ValueTypes[1] = "str"
-	ValueTypes[2] = "double"
-	ValueTypes[3] = "boolean"
-}
-
-type MorzaService struct {
-	repo   domain.MorzaRepository
-	cache  domain.MorzaCache
+type MorzeService struct {
+	repo   domain.MorzeRepository
 	logger *log.Logger
 }
 
-func NewMorzaService(configRepo domain.MorzaRepository, configCache domain.MorzaCache, logger *log.Logger) *MorzaService {
-	return &MorzaService{
+func NewMorzeService(configRepo domain.MorzeRepository, logger *log.Logger) *MorzeService {
+	return &MorzeService{
 		repo:   configRepo,
-		cache:  configCache,
 		logger: logger,
 	}
 }
 
-func (s *MorzaService) CoolCacheForMorza(ctx context.Context, serviceName string) error {
-	return s.cache.CoolByServiceName(ctx, serviceName)
+func (s *MorzeService) GetPrivateMessages(ctx context.Context, contactID int, limit int, offset int) ([]domain.MorzeMessage, error) {
+	return s.repo.GetPrivateMessages(ctx, contactID, limit, offset)
 }
 
-func (s *MorzaService) GoToCacheForMorza(ctx context.Context, serviceName string) ([]byte, error) {
-	return s.cache.TryGetByServiceName(ctx, serviceName)
-}
-
-func (s *MorzaService) WarmCacheByNewMorza(ctx context.Context, serviceName string, data []byte) error {
-	return s.cache.WarmByServiceName(ctx, serviceName, data)
+func (s *MorzeService) PostPrivateMessages(ctx context.Context, contactID int, userID int, data string, additionals []string) (int, error) {
+	return s.repo.PostPrivateMessage(ctx, contactID, userID, data, additionals)
 }

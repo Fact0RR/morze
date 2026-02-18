@@ -1,12 +1,10 @@
 services:
   app:
     build:
-      context: ./backend
-      dockerfile: deploy/Dockerfile
+      context: ./../backend
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    env_file:
-      - ./.env
     depends_on:
       - postgres
       - minio
@@ -14,9 +12,9 @@ services:
   postgres:
     image: postgres:15-alpine
     environment:
-      - POSTGRES_DB=morza
-      - POSTGRES_USER=morza
-      - POSTGRES_PASSWORD=morza
+      - POSTGRES_DB=morze
+      - POSTGRES_USER=morze
+      - POSTGRES_PASSWORD=morze
     ports:
       - "5432:5432"
     volumes:
@@ -29,7 +27,7 @@ services:
 
   migrations:
     build:
-      context: ./back/internal/database/migrations
+      context: ./../backend/internal/repository/postgres/migrations
       dockerfile: Dockerfile
     depends_on:
       postgres:

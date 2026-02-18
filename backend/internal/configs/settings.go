@@ -13,7 +13,7 @@ import (
 type Settings struct {
 	AppHost             string `default:""                          envconfig:"APP_PORT"`
 	AppPort             string `default:"8000"                      envconfig:"APP_PORT"`
-	AppName             string `default:"morza"                     envconfig:"APP_NAME"`
+	AppName             string `default:"morze"                     envconfig:"APP_NAME"`
 	Environment         string `default:"dev"                       envconfig:"APP_ENVIRONMENT"`
 	Debug               bool   `default:"false"                     envconfig:"DEBUG"`
 	Version             string `default:"0.1.0"                     envconfig:"VERSION"`
@@ -28,7 +28,7 @@ type Settings struct {
 }
 
 type DBSettings struct {
-	DatabaseURL               string `default:"postgres://morza:morza@db:5432/morza?sslmode=disable"                    envconfig:"DATABASE_URL"`
+	DatabaseURL               string `default:"postgres://morze:morze@postgres:5432/morze?sslmode=disable"                    envconfig:"DATABASE_URL"`
 	MaxIdlePgConnections      int32  `default:"100"                                                                     envconfig:"MAX_IDLE_PG_CONNECTIONS"`
 	IdleLifetimePgConnections int    `default:"1200"                                                                    envconfig:"IDLE_LIFETIME_PG_CONNECTIONS"` // sec
 	QueryExecMode             int32  `default:"1"                                                                       envconfig:"QUERY_EXEC_MODE"`
@@ -69,7 +69,7 @@ func InitSettings() Settings {
 		logger.Warnf("Не удалось загрузить .env файл. Ошибка %q", err.Error())
 	}
 
-	if err := envconfig.Process("MORZA", &settings); err != nil {
+	if err := envconfig.Process("Morze", &settings); err != nil {
 		logger.Warnf("Не удалось загрузить переменные окружения. Ошибка %q", err.Error())
 	}
 

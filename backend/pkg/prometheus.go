@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Fact0RR/morza/internal/configs"
+	"github.com/Fact0RR/morze/internal/configs"
 	"github.com/ansrivas/fiberprometheus/v2"
 	"github.com/gofiber/fiber/v2"
 	log "github.com/sirupsen/logrus"

@@ -4,12 +4,12 @@ import (
 	"context"
 	"time"
 
-	"github.com/Fact0RR/morza/internal/cache/redis"
-	"github.com/Fact0RR/morza/internal/configs"
-	"github.com/Fact0RR/morza/internal/controller"
-	"github.com/Fact0RR/morza/internal/middleware"
-	database "github.com/Fact0RR/morza/internal/repository/postgres"
-	"github.com/Fact0RR/morza/internal/service"
+	"github.com/Fact0RR/morze/internal/cache/redis"
+	"github.com/Fact0RR/morze/internal/configs"
+	"github.com/Fact0RR/morze/internal/controller"
+	"github.com/Fact0RR/morze/internal/middleware"
+	database "github.com/Fact0RR/morze/internal/repository/postgres"
+	"github.com/Fact0RR/morze/internal/service"
 	"github.com/gofiber/fiber/v2"
 	log "github.com/sirupsen/logrus"
 )
@@ -45,15 +45,15 @@ func InitApp(ctx context.Context) *App {
 	} else {
 		logger.Warn("Кеш выключен!")
 	}
-	repo := database.NewMorzaRepo(postgresClient.DB, logger)
-	cache := redis.NewMorzaCache(redisClient, settings.TTL, settings.EnabledRedis, logger)
+	repo := database.NewMorzeRepo(postgresClient.DB, logger)
+	cache := redis.NewMorzeCache(redisClient, settings.TTL, settings.EnabledRedis, logger)
 	// Остужаю кеш при зауске, чтобы сохранить консистентность данных.
 	if err := cache.CoolAll(ctx); err != nil {
 		logger.Error("Не получилось охладить кеш")
 	}
-	service := service.NewMorzaService(repo, cache, logger)
+	service := service.NewMorzeService(repo, logger)
 	baseController := controller.NewBaseController(&settings)
-	morzasController := controller.NewChangeMorzaController(service, logger)
+	morzesController := controller.NewChangeMorzeController(service, logger)
 
 	server := fiber.New(fiber.Config{
 		BodyLimit:             settings.BodyLimit,
@@ -66,8 +66,7 @@ func InitApp(ctx context.Context) *App {
 	initFiberMonitoring(&settings, server, logger)
 	api := server.Group("/api")
 	baseController.RegisterRotes(api)
-	// server.Use(middleware.Logger(logger))
-	morzasController.RegisterRotes(api, middleware.AuthMiddleware(settings.JwtSigningKeyBytes, logger))
+	morzesController.RegisterRoutes(api, middleware.AuthMiddleware(settings.JwtSigningKeyBytes, logger))
 
 	return &App{
 		server:   server,
@@ -80,7 +79,7 @@ func InitApp(ctx context.Context) *App {
 
 // RunApp main application.
 func (a *App) RunApp(ctx context.Context) error {
-	a.logger.Info("Запуск сервера", "port", a.settings.AppPort)
+	a.logger.Info("Запуск сервера ", "port:", a.settings.AppPort)
 
 	return a.server.Listen(":" + a.settings.AppPort)
 }
