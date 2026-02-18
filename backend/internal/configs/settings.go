@@ -12,7 +12,7 @@ import (
 // All settings for this project.
 type Settings struct {
 	AppHost             string `default:""                          envconfig:"APP_PORT"`
-	AppPort             string `default:"8000"                      envconfig:"APP_PORT"`
+	AppPort             string `default:"8080"                      envconfig:"APP_PORT"`
 	AppName             string `default:"morze"                     envconfig:"APP_NAME"`
 	Environment         string `default:"dev"                       envconfig:"APP_ENVIRONMENT"`
 	Debug               bool   `default:"false"                     envconfig:"DEBUG"`
