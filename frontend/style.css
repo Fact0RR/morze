@@ -1,5 +1,13 @@
 body {
-    background-color: blueviolet;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #a8edea,  /* нежный бирюзовый */
+    #fed6e3   /* мягкий розовый */
+  );
+  font-family: system-ui, sans-serif;
+  color: #1f2937; /* тёмный текст на светлом фоне */
 }
 
 /* section {
@@ -12,8 +20,9 @@ input {
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     height: 50px;
-    width: 75%;
     box-sizing: border-box;
+    margin: 0;
+    width: 75%;
 }
 
 button {
@@ -21,29 +30,35 @@ button {
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
     height: 50px;
-    width: 24%;
     box-sizing: border-box;
+    margin: 0;
+    width: 24%;
 }
 
 .box {
+    box-sizing: border-box;
     width: 50%;
     height: 750px;
-    background-color: azure;
+    background: rgba(105, 105, 105, 0.2); /* полупрозрачный белый */
+    backdrop-filter: blur(10px);
     padding: 10px;
     border-radius: 10px;
     margin: 0 auto;
+    overflow-y: auto;
+    margin-top: 10px;
 }
 
 .mes {
-    background-color: brown;
+    /* background-color: brown; */
     padding: 5px;
     margin-bottom: 5px;
     border-radius: 6px;
 }
 
 .send {
-    background-color: coral;
-    height: 50px;
-    padding: 5px;
-    border-radius: 25px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 10px;
 }
