@@ -9,7 +9,8 @@ body {
 } */
 input {
     vertical-align: middle;
-    border-radius: 25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
     height: 50px;
     width: 75%;
     box-sizing: border-box;
@@ -17,7 +18,8 @@ input {
 
 button {
     vertical-align: middle;
-    border-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
     height: 50px;
     width: 24%;
     box-sizing: border-box;
