@@ -66,6 +66,7 @@ func InitApp(ctx context.Context) *App {
 	initFiberMonitoring(&settings, server, logger)
 	api := server.Group("/api")
 	baseController.RegisterRotes(api)
+	api.Use(middleware.Cors())
 	morzesController.RegisterRoutes(api, middleware.AuthMiddleware(settings.JwtSigningKeyBytes, logger))
 
 	return &App{
