@@ -10,6 +10,6 @@ func Cors() fiber.Handler {
 		AllowOrigins:     "*",                                           // Разрешенные источники
 		AllowMethods:     "GET,POST,PUT,DELETE",                         // Разрешенные методы
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization", // Разрешенные заголовки
-		AllowCredentials: true,
+		//AllowCredentials: true,
 	})
 }
