@@ -17,11 +17,19 @@ var (
 
 	//go:embed queries/post_private_message.sql
 	queryPostPrivateMessage string
+
+	//go:embed queries/delete_private_message.sql
+	queryDeletePrivateMessage string
+
+	//go:embed queries/update_private_message.sql
+	queryUpdatePrivateMessage string
 )
 
 var (
 	errInsertOrUpdateMorze = errors.New("ошибка при обновлении конфига")
 	errGetMorzeMessages    = errors.New("ошибка при получении сообщений")
+	errDeleteMorzeMessage  = errors.New("ошибка при удалении сообщения")
+	errUpdateMorzeMessage  = errors.New("ошибка при обновлении сообщения")
 )
 
 // wrapError оборачивает ошибку с дополнительным контекстом.
@@ -66,6 +74,7 @@ func (r *MorzeRepo) GetPrivateMessages(ctx context.Context, contactID int, limit
 			&msg.Data,
 			&msg.Additionals,
 			&msg.CreatedAt,
+			&msg.Updated,
 		)
 		if err != nil {
 			r.logger.Errorf("Не удалось прочитать строку: %v", err)
@@ -103,4 +112,45 @@ func (r *MorzeRepo) PostPrivateMessage(ctx context.Context, contactID int, userI
 
 	r.logger.WithField("message_id", messageID).Debug("Сообщение успешно добавлено")
 	return messageID, nil
+}
+
+// DeletePrivateMessage мягко удаляет сообщение по ID
+func (r *MorzeRepo) DeletePrivateMessage(ctx context.Context, messageID int) error {
+	r.logger.WithField("message_id", messageID).Debug("Запрос на удаление сообщения")
+
+	commandTag, err := r.db.Exec(ctx, queryDeletePrivateMessage, messageID)
+	if err != nil {
+		r.logger.Errorf("Не удалось удалить сообщение: %v, message_id: %d", err, messageID)
+		return wrapError(errDeleteMorzeMessage, err)
+	}
+
+	if commandTag.RowsAffected() == 0 {
+		r.logger.WithField("message_id", messageID).Warn("Сообщение не найдено для удаления")
+		return wrapError(errDeleteMorzeMessage, fmt.Errorf("сообщение с id %d не найдено", messageID))
+	}
+
+	r.logger.WithField("message_id", messageID).Debug("Сообщение успешно удалено")
+	return nil
+}
+
+// UpdatePrivateMessage обновляет data сообщения по ID
+func (r *MorzeRepo) UpdatePrivateMessage(ctx context.Context, messageID int, newData string) error {
+	r.logger.WithFields(log.Fields{
+		"message_id": messageID,
+		"new_data":   newData,
+	}).Debug("Запрос на обновление сообщения")
+
+	commandTag, err := r.db.Exec(ctx, queryUpdatePrivateMessage, messageID, newData)
+	if err != nil {
+		r.logger.Errorf("Не удалось обновить сообщение: %v, message_id: %d", err, messageID)
+		return wrapError(errUpdateMorzeMessage, err)
+	}
+
+	if commandTag.RowsAffected() == 0 {
+		r.logger.WithField("message_id", messageID).Warn("Сообщение не найдено для обновления")
+		return wrapError(errUpdateMorzeMessage, fmt.Errorf("сообщение с id %d не найдено", messageID))
+	}
+
+	r.logger.WithField("message_id", messageID).Debug("Сообщение успешно обновлено")
+	return nil
 }

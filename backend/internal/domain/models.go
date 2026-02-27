@@ -10,4 +10,5 @@ type MorzeMessage struct {
 	Data        string    `json:"data"`
 	Additionals []string  `json:"additionals"`
 	CreatedAt   time.Time `json:"created_at"`
+	Updated     bool      `json:"updated"`
 }
