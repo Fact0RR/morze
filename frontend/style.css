@@ -111,22 +111,3 @@ input {
     width: max-content; /* имба, которая делает текст от правого края и ширину по тексту */
     width: fit-content; /* для каких-то древних браузеров, хз, гпт так сказал */
 }
-
-/* .clear {
-    position: absolute;
-    left: 80%;
-    width: 300px;
-    height: 75px;
-    border-radius: 50px;
-    border: none;
-    outline: none;
-    &:hover {
-        opacity: 0.7;
-    }
-
-    &:active {
-        opacity: 0.9;
-    }
-    background: rgba(186, 48, 255, 0.171); полупрозрачный белый
-    backdrop-filter: blur(100px);
-} */
