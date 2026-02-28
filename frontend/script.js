@@ -20,9 +20,39 @@ async function getData() {
   }
 }
 
+// async function postData() {
+
+//   const url = 'http://78.24.219.132:8081/api/message';
+
+//   const text = "";
+
+//   const message = {
+//     contact_id: 1,
+//     user_id: 1,
+//     data: "Стёпа - молодец"
+//   };
+
+//   try {
+//     // Отправляем GET-запрос и ЖДЁМ, пока сервер ответит
+//     const response = await fetch(
+//       'http://78.24.219.132:8081/api/messages?limit=20&offset=0&contact=1'
+//     );
+
+//     // Читаем тело ответа и превращаем JSON в JS-объект
+//     const messages = await response.json();
+
+//     // Используем полученные данные (пока просто выводим)
+//     return messages;
+
+//   } catch (error) {
+//     // Если сервер не ответил или данные сломались — ловим ошибку
+//     console.error('Ошибка:', error);
+//   }
+// }
+
 async function showHistory() {
   const messages = await getData();
-  for (let i = messages.length-1; i>=0; i--) {
+  for (let i = messages.length - 1; i >= 0; i--) {
     const textElement = document.querySelector('.messages');
     const newElement = document.createElement('div');
     console.log(messages[i].data, messages[i].created_at, messages[i].user_id);
