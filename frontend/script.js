@@ -20,35 +20,37 @@ async function getData() {
   }
 }
 
-// async function postData() {
+async function postData(value) {
 
-//   const url = 'http://78.24.219.132:8081/api/message';
+  const url = 'http://78.24.219.132:8081/api/message';
 
-//   const text = "";
+  const message = {
+    contact_id: 1,
+    user_id: 1,
+    data: value
+  };
 
-//   const message = {
-//     contact_id: 1,
-//     user_id: 1,
-//     data: "Стёпа - молодец"
-//   };
+  try {
+    // Отправляем GET-запрос и ЖДЁМ, пока сервер ответит
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(message)
+    });
 
-//   try {
-//     // Отправляем GET-запрос и ЖДЁМ, пока сервер ответит
-//     const response = await fetch(
-//       'http://78.24.219.132:8081/api/messages?limit=20&offset=0&contact=1'
-//     );
+    // Читаем тело ответа и превращаем JSON в JS-объект
+    const message_id = await response.json();
 
-//     // Читаем тело ответа и превращаем JSON в JS-объект
-//     const messages = await response.json();
+    // Используем полученные данные (пока просто выводим)
+    return message_id;
 
-//     // Используем полученные данные (пока просто выводим)
-//     return messages;
-
-//   } catch (error) {
-//     // Если сервер не ответил или данные сломались — ловим ошибку
-//     console.error('Ошибка:', error);
-//   }
-// }
+  } catch (error) {
+    // Если сервер не ответил или данные сломались — ловим ошибку
+    console.error('Ошибка:', error);
+  }
+}
 
 async function showHistory() {
   const messages = await getData();
@@ -77,17 +79,11 @@ function showText() {
   if (value !== "") {
     const textElement = document.querySelector('.messages');
     const newElement = document.createElement('div');
-    if (value.includes("ХУЙ")) {
-      newElement.className = 'hui';
-      newElement.innerHTML = value;
-      textElement.before(newElement);
-      console.log(newElement);
-    } else {
-      newElement.className = 'mes';
-      newElement.innerHTML = value;
-      textElement.before(newElement);
-      console.log(newElement);
-    }
+    newElement.className = 'mes';
+    newElement.innerHTML = value;
+    textElement.before(newElement);
+    console.log(newElement);
+    postData(value);
   }
   const box = document.getElementById("chatic");
   box.scrollTop = box.scrollHeight;
