@@ -73,7 +73,7 @@ input {
     flex-direction: column;
 }
 
-.mes {
+.mesFirstUser {
     background-color: rgba(68, 68, 68, 0.2);
     backdrop-filter: blur(10px);
     padding: 5px;
@@ -97,7 +97,7 @@ input {
     height: 10px;
     margin-bottom: 10px;
 }
-.hui {
+.mesSecondUser {
     background-color: rgba(255, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     padding: 5px;
