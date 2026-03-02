@@ -8,13 +8,9 @@ body {
   );
   font-family: system-ui, sans-serif;
   color: #1f2937; /* тёмный текст на светлом фоне */
+  overflow: hidden;
 }
 
-/* section {
-    height: 50px;
-    margin-bottom: 50px;
-    background-color: blue;
-} */
 input {
     vertical-align: middle;
     border-top-left-radius: 15px;
@@ -110,4 +106,18 @@ input {
     word-wrap: break-word;
     width: max-content; /* имба, которая делает текст от правого края и ширину по тексту */
     width: fit-content; /* для каких-то древних браузеров, хз, гпт так сказал */
+}
+
+.box::-webkit-scrollbar {
+    width: 15px;
+}
+
+.box::-webkit-scrollbar-thumb {
+    background-color: rgba(99, 99, 99, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+}
+
+.box::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
 }
