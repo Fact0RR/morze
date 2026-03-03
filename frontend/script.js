@@ -24,12 +24,12 @@ async function getData() {
   }
 }
 
-async function postData(value) {
+async function postData(value, userID) {
   const PostWay = '/api/message';
 
   const message = {
     contact_id: 1,
-    user_id: 1,
+    user_id: userID,
     data: value
   };
 
@@ -59,14 +59,27 @@ async function postData(value) {
 async function showText() {
   const input = document.getElementById("login");
   let value = input.value;      // то, что ввёл пользователь
+  let inputRadio = document.querySelector('input[name="idOneOrTwo"]:checked');
+  let userID = 2;
+  if (inputRadio.value === "One") {
+    userID = 1;
+  }
+  console.log(userID);
   if (value !== "") {
-    const messages = await postData(value);
+    const messages = await postData(value, userID);
     const textElement = document.querySelector('.messages');
     const newElement = document.createElement('div');
-    newElement.className = 'mesFirstUser';
-    newElement.innerHTML = value;
-    textElement.before(newElement);
-    console.log(messages.message_id)
+    if (userID === 1) {
+      newElement.className = 'mesFirstUser';
+      newElement.innerHTML = value;
+      textElement.before(newElement);
+      console.log(messages.message_id)
+    } else {
+      newElement.className = 'mesSecondUser';
+      newElement.innerHTML = value;
+      textElement.before(newElement);
+      console.log(messages.message_id)
+    }
   }
   const box = document.getElementById("chatic");
   box.scrollTop = box.scrollHeight;
@@ -97,7 +110,7 @@ async function showHistory() {
 
 window.onload = () => {
   const chat = document.getElementById('chatic');
-  setTimeout (() => {
-  chat.scrollTop = chat.scrollHeight;
-  },50);
+  setTimeout(() => {
+    chat.scrollTop = chat.scrollHeight;
+  }, 50);
 };

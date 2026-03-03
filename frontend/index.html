@@ -9,6 +9,23 @@
 </head>
 
 <body>
+    <form class="radio-group">
+        <!-- label нужен, чтобы по тексту тоже можно было кликать -->
+        <label class="radio">
+            <!-- сама радиокнопка (настоящая, но мы её спрячем) -->
+            <input type="radio" name="idOneOrTwo" value="One" checked>
+            <!-- кастомный кружок, который мы будем стилизовать -->
+            <span class="custom-radio"></span>
+            <!-- текст варианта -->
+            user_id:1
+        </label>
+
+        <label class="radio">
+            <input type="radio" name="idOneOrTwo" value="Two">
+            <span class="custom-radio"></span>
+            user_id:2
+        </label>
+    </form>
     <div id="chatic" class="box">
         <div class="chat">
             <div class="messages"></div>

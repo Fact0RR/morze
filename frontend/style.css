@@ -1,17 +1,20 @@
 body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #a8edea,  /* нежный бирюзовый */
-    #fed6e3   /* мягкий розовый */
-  );
-  font-family: system-ui, sans-serif;
-  color: #1f2937; /* тёмный текст на светлом фоне */
-  overflow: hidden;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg,
+            #a8edea,
+            /* нежный бирюзовый */
+            #fed6e3
+            /* мягкий розовый */
+        );
+    font-family: system-ui, sans-serif;
+    color: #1f2937;
+    /* тёмный текст на светлом фоне */
+    overflow: hidden;
+    padding-top: 50px;
 }
 
-input {
+input[name="user-login"] {
     vertical-align: middle;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -22,6 +25,7 @@ input {
     border: none;
     outline: none;
     padding-left: 10px;
+
     &:hover {
         opacity: 0.7;
     }
@@ -29,6 +33,7 @@ input {
     &:active {
         opacity: 0.9;
     }
+
     background-color: rgb(248, 215, 215);
     backdrop-filter: blur(10px);
 }
@@ -43,6 +48,7 @@ input {
     width: 24%;
     border: none;
     outline: none;
+
     &:hover {
         opacity: 0.7;
     }
@@ -50,6 +56,7 @@ input {
     &:active {
         opacity: 0.9;
     }
+
     background-color: rgb(248, 215, 215);
     backdrop-filter: blur(10px);
 }
@@ -58,13 +65,13 @@ input {
     box-sizing: border-box;
     width: 50%;
     height: 700px;
-    background: rgba(105, 105, 105, 0.2); /* полупрозрачный белый */
+    background: rgba(105, 105, 105, 0.2);
+    /* полупрозрачный белый */
     backdrop-filter: blur(10px);
     padding: 10px;
     border-radius: 10px;
     margin: 0 auto;
     overflow-y: auto;
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
 }
@@ -80,8 +87,10 @@ input {
     margin-left: auto;
     max-width: 70%;
     word-wrap: break-word;
-    width: max-content; /* имба, которая делает текст от правого края и ширину по тексту */
-    width: fit-content; /* для каких-то древних браузеров, хз, гпт так сказал */
+    width: max-content;
+    /* имба, которая делает текст от правого края и ширину по тексту */
+    width: fit-content;
+    /* для каких-то древних браузеров, хз, гпт так сказал */
 }
 
 .send {
@@ -89,10 +98,12 @@ input {
     width: 50%;
     margin-top: 10px;
 }
+
 .messages {
     height: 10px;
     margin-bottom: 10px;
 }
+
 .mesSecondUser {
     background-color: rgba(255, 0, 0, 0.2);
     backdrop-filter: blur(10px);
@@ -104,8 +115,10 @@ input {
     margin-right: auto;
     max-width: 70%;
     word-wrap: break-word;
-    width: max-content; /* имба, которая делает текст от правого края и ширину по тексту */
-    width: fit-content; /* для каких-то древних браузеров, хз, гпт так сказал */
+    width: max-content;
+    /* имба, которая делает текст от правого края и ширину по тексту */
+    width: fit-content;
+    /* для каких-то древних браузеров, хз, гпт так сказал */
 }
 
 .box::-webkit-scrollbar {
@@ -120,4 +133,86 @@ input {
 
 .box::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.2);
+}
+
+/* Контейнер для группы радиокнопок */
+.radio-group {
+    display: flex;
+    /* выстраиваем элементы в линию */
+    flex-direction: column;
+    gap: 20px;
+    /* расстояние между радиокнопками */
+    position: absolute;
+    left: 80%;
+}
+
+/* label — кликабельная область */
+.radio {
+    display: flex;
+    /* кружок + текст в одну строку */
+    align-items: center;
+    /* выравниваем по вертикали */
+    cursor: pointer;
+    /* курсор — палец */
+    font-size: 18px;
+    /* размер текста */
+}
+
+/* Прячем стандартную радиокнопку браузера */
+.radio input {
+    display: none;
+    /* полностью скрываем input */
+}
+
+/* Кастомный кружок */
+.custom-radio {
+    width: 20px;
+    /* ширина кружка */
+    height: 20px;
+    /* высота кружка */
+    border: 2px solid #555;
+    /* рамка */
+    border-radius: 50%;
+    /* делаем круг */
+    margin-right: 8px;
+    /* отступ от текста */
+    position: relative;
+    /* нужно для ::after */
+    transition: 0.2s;
+    /* плавные анимации */
+}
+
+/* Внутренний кружок (когда выбрано) */
+.custom-radio::after {
+    content: "";
+    /* обязательное свойство */
+    width: 10px;
+    /* размер точки */
+    height: 10px;
+    background: #4f46e5;
+    /* цвет активного состояния */
+    border-radius: 50%;
+    /* тоже круг */
+    position: absolute;
+    /* позиционируем внутри */
+    top: 50%;
+    /* по вертикали */
+    left: 50%;
+    /* по горизонтали */
+    transform: translate(-50%, -50%) scale(0);
+    /* прячем точку */
+    transition: 0.2s;
+    /* плавное появление */
+}
+
+/* Когда input выбран */
+.radio input:checked+.custom-radio {
+    border-color: #4f46e5;
+    /* меняем цвет рамки */
+}
+
+/* Показываем точку внутри */
+.radio input:checked+.custom-radio::after {
+    transform: translate(-50%, -50%) scale(1);
+    /* увеличиваем до нормального размера */
 }
