@@ -48,6 +48,7 @@ input[name="user-login"] {
     width: 24%;
     border: none;
     outline: none;
+    padding: 1px 2px;
 
     &:hover {
         opacity: 0.7;
@@ -97,6 +98,13 @@ input[name="user-login"] {
     margin: 0 auto;
     width: 50%;
     margin-top: 10px;
+
+    display: flex;
+    /* элементы будут в ряд */
+    gap: 2px;
+    /* расстояние между инпутом и кнопкой */
+    align-items: center;
+    /* вертикальное выравнивание */
 }
 
 .messages {
