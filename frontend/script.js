@@ -64,7 +64,6 @@ async function showText() {
   if (inputRadio.value === "One") {
     userID = 1;
   }
-  console.log(userID);
   if (value !== "") {
     const messages = await postData(value, userID);
     const textElement = document.querySelector('.messages');
@@ -73,12 +72,10 @@ async function showText() {
       newElement.className = 'mesFirstUser';
       newElement.innerHTML = value;
       textElement.before(newElement);
-      console.log(messages.message_id)
     } else {
       newElement.className = 'mesSecondUser';
       newElement.innerHTML = value;
       textElement.before(newElement);
-      console.log(messages.message_id)
     }
   }
   const box = document.getElementById("chatic");
@@ -98,12 +95,10 @@ async function showHistory() {
       newElement.className = 'mesFirstUser';
       newElement.innerHTML = messages[i].data;
       textElement.before(newElement);
-      console.log(messages[i].id);
     } else {
       newElement.className = 'mesSecondUser';
       newElement.innerHTML = messages[i].data;
       textElement.before(newElement);
-      console.log(messages[i].id);
     }
   }
 }
