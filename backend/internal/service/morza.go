@@ -26,3 +26,11 @@ func (s *MorzeService) GetPrivateMessages(ctx context.Context, contactID int, li
 func (s *MorzeService) PostPrivateMessages(ctx context.Context, contactID int, userID int, data string, additionals []string) (int, error) {
 	return s.repo.PostPrivateMessage(ctx, contactID, userID, data, additionals)
 }
+
+func (s *MorzeService) UpdatePrivateMessage(ctx context.Context, messageID int, updatedMessage string) error {
+	return s.repo.UpdatePrivateMessage(ctx, messageID, updatedMessage)
+}
+
+func (s *MorzeService) DeletePrivateMessage(ctx context.Context, messageID int) error {
+	return s.repo.DeletePrivateMessage(ctx, messageID)
+}

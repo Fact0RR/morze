@@ -10,3 +10,7 @@ type Contact struct {
 type MessageResponse struct {
 	MessageID int `json:"message_id"`
 }
+
+type UpdateRequest struct {
+	UpdatedData string `json:"updated_data"`
+}
