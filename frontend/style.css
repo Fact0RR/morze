@@ -232,3 +232,8 @@ input[name="user-login"] {
     transform: translate(-50%, -50%) scale(1);
     /* увеличиваем до нормального размера */
 }
+
+.imgSendMes {
+    height: 70%;
+    aspect-ratio: 1/1;
+}
