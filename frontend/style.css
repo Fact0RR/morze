@@ -1,6 +1,7 @@
 body {
+    overflow-x: hidden;
     margin: 0;
-    min-height: 100vh;
+    min-height: 100dvh;
     background: linear-gradient(135deg,
             #a8edea,
             /* нежный бирюзовый */
@@ -11,7 +12,6 @@ body {
     color: #1f2937;
     /* тёмный текст на светлом фоне */
     overflow: hidden;
-    padding-top: 50px;
 }
 
 input[name="user-login"] {
@@ -65,7 +65,8 @@ input[name="user-login"] {
 .box {
     box-sizing: border-box;
     width: 50%;
-    height: 700px;
+    height: 70vh;
+    height: 70dvh;
     background: rgba(105, 105, 105, 0.2);
     /* полупрозрачный белый */
     backdrop-filter: blur(10px);
@@ -145,25 +146,32 @@ input[name="user-login"] {
 
 /* Контейнер для группы радиокнопок */
 .radio-group {
+    height: 5dvh;
     display: flex;
     /* выстраиваем элементы в линию */
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 20%;
     /* расстояние между радиокнопками */
-    position: absolute;
-    left: 80%;
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2dvh;
+    margin-bottom: 2dvh;
 }
 
 /* label — кликабельная область */
 .radio {
+    box-sizing: border-box;
     display: flex;
     /* кружок + текст в одну строку */
     align-items: center;
     /* выравниваем по вертикали */
     cursor: pointer;
     /* курсор — палец */
-    font-size: 18px;
-    /* размер текста */
+    height: 40%;
+    width: 100%;
 }
 
 /* Прячем стандартную радиокнопку браузера */
@@ -174,15 +182,15 @@ input[name="user-login"] {
 
 /* Кастомный кружок */
 .custom-radio {
-    width: 20px;
-    /* ширина кружка */
-    height: 20px;
+    height: 100%;
     /* высота кружка */
+    aspect-ratio: 1/1;
+    /* ширина равна высоте */
     border: 2px solid #555;
     /* рамка */
     border-radius: 50%;
     /* делаем круг */
-    margin-right: 8px;
+    margin-right: 5%;
     /* отступ от текста */
     position: relative;
     /* нужно для ::after */
@@ -194,10 +202,10 @@ input[name="user-login"] {
 .custom-radio::after {
     content: "";
     /* обязательное свойство */
-    width: 10px;
+    width: 115%;
     /* размер точки */
-    height: 10px;
-    background: #4f46e5;
+    height: 115%;
+    background: #000000;
     /* цвет активного состояния */
     border-radius: 50%;
     /* тоже круг */
@@ -215,7 +223,7 @@ input[name="user-login"] {
 
 /* Когда input выбран */
 .radio input:checked+.custom-radio {
-    border-color: #4f46e5;
+    border-color: #000000;
     /* меняем цвет рамки */
 }
 
@@ -223,4 +231,9 @@ input[name="user-login"] {
 .radio input:checked+.custom-radio::after {
     transform: translate(-50%, -50%) scale(1);
     /* увеличиваем до нормального размера */
+}
+
+.imgSendMes {
+    height: 70%;
+    aspect-ratio: 1/1;
 }
