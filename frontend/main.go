@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-//go:embed index.html script.js style.css env.js
+//go:embed index.html script.js style.css env.js send_mes.png
 var staticFiles embed.FS
 
 func main() {
